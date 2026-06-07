@@ -5,7 +5,10 @@ const Hero = ({
     title,
     description,
     showButtons = true,
+    setAuthOpen,
+    setAuthType
 }) => {
+
     return (
         <div
             className="relative flex flex-col items-center justify-center text-center px-6 min-h-[70vh] bg-cover bg-center"
@@ -28,7 +31,7 @@ const Hero = ({
                 {/* Buttons (only show if true) */}
                 {showButtons && (
                     <div className="flex flex-col sm:flex-row gap-4 mt-6 justify-center">
-                        <button className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700">
+                        <button onClick={() => { setAuthType("login"); setAuthOpen(true) }} className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700">
                             Get Started
                         </button>
 

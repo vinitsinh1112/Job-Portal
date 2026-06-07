@@ -2,7 +2,7 @@ import React from 'react'
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 
-const Landing = ({ }) => {
+const Landing = ({ setAuthOpen, setAuthType }) => {
     return (
         <div className='min-h-screen bg-gray-50'>
 
@@ -11,6 +11,8 @@ const Landing = ({ }) => {
                 title="Find Your Dream Job Easily"
                 description="Explore thousands of job opportunities and apply with ease using our modern job portal."
                 showButtons={true}
+                setAuthOpen={setAuthOpen}
+                setAuthType={setAuthType}
             />
 
             {/* cards-section */}

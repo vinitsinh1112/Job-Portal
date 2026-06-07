@@ -30,6 +30,10 @@ const MainLayout = () => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    const handleNavClick = () => {
+        setSidebarOpen(false);
+    };
+
     return (
         <div className='flex h-screen'>
 
@@ -39,7 +43,7 @@ const MainLayout = () => {
 
                 <button
                     className='md:hidden mb-4 text-right'
-                    onClick={() => setSidebarOpen(false)}
+                    onClick={handleNavClick}
                 >
                     <FaTimes />
                 </button>
@@ -50,27 +54,48 @@ const MainLayout = () => {
 
                     {user?.role === "user" && (
                         <>
-                            <NavLink to="/dashboard" end className={({ isActive }) =>
-                                `flex items-center gap-3 px-4 py-2.5 rounded-lg transition ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
-                            }>
+                            <NavLink
+                                to="/dashboard"
+                                end
+                                onClick={handleNavClick}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 px-4 py-2.5 rounded-lg transition
+                                 ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
+                                }
+                            >
                                 <FaHome /> Home
                             </NavLink>
 
-                            <NavLink to="/dashboard/jobs" className={({ isActive }) =>
-                                `flex items-center gap-3 px-4 py-2.5 rounded-lg transition ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
-                            }>
+                            <NavLink
+                                to="/dashboard/jobs"
+                                onClick={handleNavClick}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 px-4 py-2.5 rounded-lg transition
+                                 ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
+                                }
+                            >
                                 <FaBriefcase /> Jobs
                             </NavLink>
 
-                            <NavLink to="/dashboard/applications" className={({ isActive }) =>
-                                `flex items-center gap-3 px-4 py-2.5 rounded-lg transition ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
-                            }>
+                            <NavLink
+                                to="/dashboard/applications"
+                                onClick={handleNavClick}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 px-4 py-2.5 rounded-lg transition
+                                 ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
+                                }
+                            >
                                 <FaClipboardList /> Applications
                             </NavLink>
 
-                            <NavLink to="/dashboard/savedJobs" className={({ isActive }) =>
-                                `flex items-center gap-3 px-4 py-2.5 rounded-lg transition ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
-                            }>
+                            <NavLink
+                                to="/dashboard/savedJobs"
+                                onClick={handleNavClick}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 px-4 py-2.5 rounded-lg transition 
+                                ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
+                                }
+                            >
                                 <IoBookmarksSharp /> Saved Jobs
                             </NavLink>
                         </>
@@ -78,21 +103,37 @@ const MainLayout = () => {
 
                     {user?.role === "recruiter" && (
                         <>
-                            <NavLink to="/dashboard" end className={({ isActive }) =>
-                                `flex items-center gap-3 px-4 py-2.5 rounded-lg transition ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
-                            }>
+                            <NavLink
+                                to="/dashboard"
+                                onClick={handleNavClick}
+                                end
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 px-4 py-2.5 rounded-lg transition 
+                                ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
+                                }
+                            >
                                 <FaHome /> Home
                             </NavLink>
 
-                            <NavLink to="/dashboard/myjobs" className={({ isActive }) =>
-                                `flex items-center gap-3 px-4 py-2.5 rounded-lg transition ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
-                            }>
+                            <NavLink
+                                to="/dashboard/myjobs"
+                                onClick={handleNavClick}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 px-4 py-2.5 rounded-lg transition 
+                                ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
+                                }
+                            >
                                 <FaBriefcase /> My Jobs
                             </NavLink>
 
-                            <NavLink to="/dashboard/create-jobs" className={({ isActive }) =>
-                                `flex items-center gap-3 px-4 py-2.5 rounded-lg transition ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
-                            }>
+                            <NavLink
+                                to="/dashboard/create-jobs"
+                                onClick={handleNavClick}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 px-4 py-2.5 rounded-lg transition 
+                                ${isActive ? "bg-blue-600" : "hover:bg-gray-700"}`
+                                }
+                            >
                                 <FaPlusCircle /> Create Job
                             </NavLink>
                         </>

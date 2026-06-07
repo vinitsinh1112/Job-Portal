@@ -54,7 +54,7 @@ const GlobalModal = () => {
             <div
                 onClick={closeModal}
                 className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-200
-                ${show ? "opacity-100" : "opacity-0"}`}
+                ${show ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-5 pointer-events-none"}`}
             />
 
             {/* ANIMATION WRAPPER */}

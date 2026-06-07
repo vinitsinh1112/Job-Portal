@@ -15,6 +15,10 @@ const AuthModal = ({ authOpen, setAuthOpen, authType }) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
+
+    const [mounted, setMounted] = useState(false);
+    const [show, setShow] = useState(false);
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -81,8 +85,29 @@ const AuthModal = ({ authOpen, setAuthOpen, authType }) => {
     }, [authOpen]);
 
     useEffect(() => {
-        setMode(authType)
+        setMode(authType);
     }, [authType]);
+
+    useEffect(() => {
+        if (authOpen) {
+            setMounted(true);
+            setShow(false);
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    setShow(true);
+                });
+            });
+        } else {
+            setShow(false);
+
+            const t = setTimeout(() => {
+                setMounted(false);
+            }, 300);
+
+            return () => clearTimeout(t);
+        }
+    }, [authOpen]);
 
     useEffect(() => {
         if (authOpen) {
@@ -112,20 +137,36 @@ const AuthModal = ({ authOpen, setAuthOpen, authType }) => {
         }
     }, [authOpen]);
 
-    if (!authOpen) return null;
+    // 🔥 IMPORTANT FIX
+    if (!mounted) return null;
 
     return (
-        <div className='fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4'>
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
 
-            {/* Modal Box */}
+            {/* Backdrop */}
+            <div
+                onClick={() => setAuthOpen(false)}
+                className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300
+                ${show ? "opacity-100" : "opacity-0"}`}
+            />
+
+            {/* Modal */}
             <div
                 ref={modalRef}
-                className='bg-white w-full max-w-md max-h-[90vh] rounded-xl shadow-xl overflow-hidden flex flex-col'
+                className={`
+                    relative bg-white w-full max-w-md max-h-[90vh]
+                    rounded-xl shadow-xl overflow-hidden flex flex-col
+                    transition-all duration-300 ease-out
+                    ${show
+                        ? "opacity-100 translate-y-0 scale-100"
+                        : "opacity-0 translate-y-8 scale-95"
+                    }
+                `}
             >
 
-                {/* 🔥 Sticky Header */}
-                <div className='sticky top-0 bg-white z-10 flex justify-between items-center px-5 py-4 border-b'>
-                    <h2 className='text-lg sm:text-xl font-semibold'>
+                {/* Header */}
+                <div className="sticky top-0 bg-white z-10 flex justify-between items-center px-5 py-4 border-b">
+                    <h2 className="text-lg sm:text-xl font-semibold">
                         {mode === "login"
                             ? "Login to your account"
                             : "Create an account"}
@@ -133,25 +174,25 @@ const AuthModal = ({ authOpen, setAuthOpen, authType }) => {
 
                     <button
                         onClick={() => setAuthOpen(false)}
-                        className='text-gray-500 hover:text-black'
+                        className="text-gray-500 hover:text-black"
                     >
                         <FaTimes />
                     </button>
                 </div>
 
-                {/* 🔥 Scrollable Body */}
-                <div className='flex-1 overflow-y-auto px-5 py-4'>
+                {/* Body */}
+                <div className="flex-1 overflow-y-auto px-5 py-4">
 
-                    <form onSubmit={handleSubmit} className='flex flex-col gap-5'>
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
                         {mode === "register" && (
-                            <div className='flex flex-col gap-1'>
-                                <label className='text-sm font-medium text-gray-700'>Role</label>
+                            <div className="flex flex-col gap-1">
+                                <label className="text-sm font-medium text-gray-700">Role</label>
                                 <select
-                                    name='role'
+                                    name="role"
                                     value={formData.role}
                                     onChange={handleInputChange}
-                                    className='border rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                                    className="border rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
                                     <option value="">Select Role</option>
                                     <option value="user">Job Seeker</option>
@@ -161,40 +202,40 @@ const AuthModal = ({ authOpen, setAuthOpen, authType }) => {
                         )}
 
                         {mode === "register" && (
-                            <div className='flex flex-col gap-1'>
-                                <label className='text-sm font-medium text-gray-700'>Full Name</label>
+                            <div className="flex flex-col gap-1">
+                                <label className="text-sm font-medium text-gray-700">Full Name</label>
                                 <input
-                                    name='name'
+                                    name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
-                                    type='text'
-                                    placeholder='Enter your full name'
-                                    className='border rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                                    type="text"
+                                    placeholder="Enter your full name"
+                                    className="border rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                         )}
 
-                        <div className='flex flex-col gap-1'>
-                            <label className='text-sm font-medium text-gray-700'>Email</label>
+                        <div className="flex flex-col gap-1">
+                            <label className="text-sm font-medium text-gray-700">Email</label>
                             <input
-                                name='email'
+                                name="email"
                                 value={formData.email}
                                 onChange={handleInputChange}
-                                type='email'
-                                placeholder='Enter your email'
-                                className='border rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                                type="email"
+                                placeholder="Enter your email"
+                                className="border rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
-                        <div className='flex flex-col gap-1'>
-                            <label className='text-sm font-medium text-gray-700'>Password</label>
+                        <div className="flex flex-col gap-1">
+                            <label className="text-sm font-medium text-gray-700">Password</label>
                             <input
-                                name='password'
+                                name="password"
                                 value={formData.password}
                                 onChange={handleInputChange}
-                                type='password'
-                                placeholder='Enter your password'
-                                className='border rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                                type="password"
+                                placeholder="Enter your password"
+                                className="border rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
@@ -202,7 +243,7 @@ const AuthModal = ({ authOpen, setAuthOpen, authType }) => {
                             type="submit"
                             disabled={isLoading}
                             className={`text-white py-2.5 rounded-md font-medium transition-all duration-300 shadow-sm
-    ${isLoading
+                            ${isLoading
                                     ? "bg-gray-400 cursor-not-allowed"
                                     : "bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 hover:shadow-md active:scale-95"
                                 }`}
@@ -218,15 +259,15 @@ const AuthModal = ({ authOpen, setAuthOpen, authType }) => {
 
                     </form>
 
-                    <p className='text-center text-sm text-gray-600 mt-6'>
+                    <p className="text-center text-sm text-gray-600 mt-6">
                         {mode === "login" ? (
                             <>
                                 Don't have an account?{" "}
                                 <button
-                                    type='button'
+                                    type="button"
                                     disabled={isLoading}
                                     onClick={() => setMode("register")}
-                                    className='text-blue-600 font-medium hover:underline'
+                                    className="text-blue-600 font-medium hover:underline"
                                 >
                                     Sign up
                                 </button>
@@ -235,10 +276,10 @@ const AuthModal = ({ authOpen, setAuthOpen, authType }) => {
                             <>
                                 Already have an account?{" "}
                                 <button
-                                    type='button'
+                                    type="button"
                                     disabled={isLoading}
                                     onClick={() => setMode("login")}
-                                    className='text-blue-600 font-medium hover:underline'
+                                    className="text-blue-600 font-medium hover:underline"
                                 >
                                     Login
                                 </button>

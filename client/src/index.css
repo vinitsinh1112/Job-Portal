@@ -32,3 +32,25 @@
 .animate-scaleIn {
     animation: scaleIn 0.2s ease-in-out;
 }
+
+.Toastify__toast-container {
+    padding: 10px !important;
+}
+
+.Toastify__progress-bar {
+    height: 3px !important;
+    opacity: 0.6;
+}
+
+@media (max-width: 640px) {
+    .Toastify__toast-container {
+        width: 100% !important;
+        padding: 10px !important;
+    }
+
+    .Toastify__toast {
+        max-width: 95vw !important;
+        margin: 0 auto !important;
+        border-radius: 10px !important;
+    }
+}

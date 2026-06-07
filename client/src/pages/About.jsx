@@ -45,25 +45,43 @@ const About = () => {
 
             </div>
 
-            {/* Stats Section */}
+            {/* Features Section */}
             <div className="bg-white py-16 px-6">
-                <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                <div className="max-w-5xl mx-auto text-center">
+                    <h2 className="text-3xl font-bold text-gray-800 mb-10">
+                        Key Features
+                    </h2>
 
-                    <div className="p-6 border rounded-lg shadow-md">
-                        <h3 className="text-3xl font-bold text-blue-600">10K+</h3>
-                        <p className="text-gray-600 mt-2">Jobs Listed</p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                        <div className="p-6 border rounded-lg shadow-md">
+                            <h3 className="text-xl font-semibold text-blue-600 mb-2">
+                                Job Search
+                            </h3>
+                            <p className="text-gray-600">
+                                Browse and apply to job opportunities with an intuitive interface.
+                            </p>
+                        </div>
+
+                        <div className="p-6 border rounded-lg shadow-md">
+                            <h3 className="text-xl font-semibold text-blue-600 mb-2">
+                                Application Tracking
+                            </h3>
+                            <p className="text-gray-600">
+                                Track submitted applications and monitor their status.
+                            </p>
+                        </div>
+
+                        <div className="p-6 border rounded-lg shadow-md">
+                            <h3 className="text-xl font-semibold text-blue-600 mb-2">
+                                Recruiter Dashboard
+                            </h3>
+                            <p className="text-gray-600">
+                                Recruiters can create jobs and manage applicants efficiently.
+                            </p>
+                        </div>
+
                     </div>
-
-                    <div className="p-6 border rounded-lg shadow-md">
-                        <h3 className="text-3xl font-bold text-blue-600">5K+</h3>
-                        <p className="text-gray-600 mt-2">Active Users</p>
-                    </div>
-
-                    <div className="p-6 border rounded-lg shadow-md">
-                        <h3 className="text-3xl font-bold text-blue-600">2K+</h3>
-                        <p className="text-gray-600 mt-2">Companies</p>
-                    </div>
-
                 </div>
             </div>
 

@@ -22,6 +22,7 @@ import RoleRoute from "./routes/RoleRoute.jsx";
 import { useAuth } from "./context/authContext.jsx";
 import GlobalModal from "./components/modals/GlobalModal.jsx";
 import SavedJobs from "./pages/SavedJobs.jsx";
+import './index.css'
 
 function App() {
 
@@ -36,7 +37,19 @@ function App() {
   return (
     <>
 
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        pauseOnHover={false}
+        draggable
+        theme="light"
+        toastClassName="!shadow-lg !px-4 !py-3 !backdrop-blur-md"
+        bodyClassName="!text-sm sm:!text-base !font-medium"
+      />
+
 
       {!isDashboardPage && (
         <Navbar setAuthOpen={setAuthOpen} setAuthType={setAuthType} />
@@ -44,7 +57,7 @@ function App() {
 
       <Routes>
 
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Landing setAuthOpen={setAuthOpen} setAuthType={setAuthType} />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
 
