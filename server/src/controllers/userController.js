@@ -2,8 +2,6 @@ import AsyncHandler from "express-async-handler";
 import userModel from "../models/userModel.js";
 import httpStatus from "http-status";
 import uploadToCloudinary from "../utils/uploadToCloudinary.js";
-import fs from 'fs/promises';
-
 
 // get user profile
 const getUserProfile = AsyncHandler(async (req, res) => {
@@ -86,13 +84,11 @@ const updateUserProfile = AsyncHandler(async (req, res) => {
             const file = req.files.resume[0];
 
             user.resume = await uploadToCloudinary(
-                file.path,
+                file.buffer,
                 "Job-portal/resumes"
             );
 
-            user.resumeName = file.originalname; // 🔥 IMPORTANT
-
-            await fs.unlink(file.path);
+            user.resumeName = file.originalname;
         }
     }
 
@@ -115,16 +111,24 @@ const updateUserProfile = AsyncHandler(async (req, res) => {
 
         // company logo
         if (req.files?.companyLogo) {
-            user.companyLogo = await uploadToCloudinary(req.files.companyLogo[0].path, "Job-portal/company-logos");
-            await fs.unlink(req.files.companyLogo[0].path);
+            const file = req.files.companyLogo[0];
+
+            user.companyLogo = await uploadToCloudinary(
+                file.buffer,
+                "Job-portal/company-logos"
+            );
         }
     }
 
 
     // upload profile-image
     if (req.files?.profileImage) {
-        user.profileImage = await uploadToCloudinary(req.files.profileImage[0].path, "Job-portal/profile-images");
-        await fs.unlink(req.files.profileImage[0].path);
+        const file = req.files.profileImage[0];
+
+        user.profileImage = await uploadToCloudinary(
+            file.buffer,
+            "Job-portal/profile-images"
+        );
     }
 
     const updatedUser = await user.save();

@@ -2,7 +2,6 @@ import asyncHandler from "express-async-handler";
 import jobModel from "../models/jobModel.js";
 import httpStatus from "http-status"
 import applicationModel from "../models/applicationModel.js";
-import fs from 'fs/promises';
 import uploadToCloudinary from "../utils/uploadToCloudinary.js";
 import userModel from "../models/userModel.js";
 
@@ -50,9 +49,9 @@ const applyJob = asyncHandler(async (req, res) => {
     let resumeName;
 
     if (req.file) {
-        resumeUrl = await uploadToCloudinary(req.file.path, "Job-portal/resumes");
-        resumeName = req.file.originalName;
-        await fs.unlink(req.file.path);
+        resumeUrl = await uploadToCloudinary(req.file.buffer, "Job-portal/resumes");
+        resumeName = req.file.originalname;
+
 
     } else {
         const user = await userModel.findById(userId);
