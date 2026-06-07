@@ -42,14 +42,22 @@
     opacity: 0.6;
 }
 
+.Toastify__toast-container--top-center {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: auto !important;
+}
+
 @media (max-width: 640px) {
     .Toastify__toast-container {
         width: 100% !important;
-        padding: 10px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        padding: 24px !important;
     }
 
     .Toastify__toast {
-        max-width: 95vw !important;
+        max-width: 90vw !important;
         margin: 0 auto !important;
         border-radius: 10px !important;
     }
