@@ -91,7 +91,7 @@ const EditProfileModal = ({ modalData, closeModal }) => {
                 {/* IMAGE SECTION */}
                 <div className='flex flex-col sm:flex-row items-center sm:items-start gap-4'>
 
-                    <div className='w-22 h-24 border rounded-md flex items-center justify-center overflow-hidden bg-gray-100 mx-auto sm:mx-0'>
+                    <div className='w-24 h-24 border rounded-md flex items-center justify-center overflow-hidden bg-gray-100 mx-auto sm:mx-0'>
                         {previewImage ? (
                             <img
                                 src={previewImage}
